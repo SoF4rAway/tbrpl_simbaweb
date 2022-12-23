@@ -1,0 +1,108 @@
+/* dbpenjualan */
+create database dbpenjualan;
+use dbpenjualan;
+
+create table Barang(Kode_brg Varchar(5) NOT NULL Primary Key, Nama_brg Varchar(30), Satuan Varchar(25), Harga Int, Jumlah Int);
+
+create table Pelanggan(Kode_plgg Varchar(5) NOT NULL Primary Key, Nama_plgg Varchar(30), Alamat Varchar(50));
+
+create table Penjualan(No_faktur Varchar(5), Tanggal_jual Date, Kode_plgg Varchar(5) NOT NULL references Pelanggan (Kode_plgg), Kode_brg Varchar(5) NOT NULL references Barang (Kode_brg), Jumlah_jual Int);
+
+
+/*Input dbpenjualan*/
+insert into barang values ('B-001', 'Monitor LG21"', 'Unit', 1000000, 200);
+insert into barang values ('B-002', 'Harddisk 1 TB', 'Unit', 750000, 200);
+insert into barang values ('B-003', 'Printer HP 1020', 'Unit', 500000, 200);
+insert into barang values ('B-004', 'Speaker', 'Unit', 200000, 200);
+insert into barang values ('B-005', 'Flashdisk Kingston 8 GB', 'Unit', 80000, 200);
+
+insert into Pelanggan values ('P-001', 'Agung Dwiyanto', 'Jl. Limau Manis No. 46 Padang');
+insert into Pelanggan values ('P-002', 'Dira Oktovia', 'Jl. Irigasi No. 45 Bukittinggi');
+insert into Pelanggan values ('P-003', 'Bayu Aditya', 'Simpang Gadut No.10 Padang');
+insert into Pelanggan values ('P-004', 'Rezki Sananda', 'Jl. Koto Tuo No. 65 Bukittinggi');
+
+
+update pelanggan set Alamat = 'Jl. Irigasi No. 45 Bukittinggi' where Kode_plgg = 'P-002';
+
+update Barang set Harga = 500000 where Kode_brg = 'B-003';
+
+update Barang set Harga = 80000 where Kode_brg = 'B-005';
+
+
+alter table Barang change Jumlah_barang Jumlah Int;		
+
+use dbmhs;
+
+alter table Mahasiswa drop Dosen_PA;
+
+use dbpenjualan;
+
+alter table Barang Modify Nama_brg Varchar(30);
+
+insert into Penjualan values ('F-001', '2014-09-01', 'P-001', 'B-001', 10);
+insert into Penjualan values ('F-001', '2014-09-01', 'P-001', 'B-002', 7);
+insert into Penjualan values ('F-001', '2014-09-01', 'P-001', 'B-003', 15);
+
+insert into Penjualan values ('F-002', '2014-09-01', 'P-003', 'B-002', 5);
+insert into Penjualan values ('F-002', '2014-09-01', 'P-003', 'B-004', 20);
+
+insert into Penjualan values ('F-003', '2014-09-04', 'P-002', 'B-001', 5);
+insert into Penjualan values ('F-003', '2014-09-04', 'P-002', 'B-002', 10);
+insert into Penjualan values ('F-003', '2014-09-04', 'P-002', 'B-004', 12);
+
+insert into Penjualan values ('F-004', '2014-09-05', 'P-001', 'B-001', 5);
+insert into Penjualan values ('F-004', '2014-09-05', 'P-001', 'B-005', 15);
+
+insert into Penjualan values ('F-005', '2014-10-10', 'P-003', 'B-002', 10);
+insert into Penjualan values ('F-005', '2014-10-10', 'P-003', 'B-003', 20);
+insert into Penjualan values ('F-005', '2014-10-10', 'P-003', 'B-004', 15);
+insert into Penjualan values ('F-005', '2014-10-10', 'P-003', 'B-005', 5);
+
+insert into Penjualan values ('F-006', '2014-10-12', 'P-002', 'B-002', 10);
+insert into Penjualan values ('F-006', '2014-10-12', 'P-002', 'B-003', 20);
+
+insert into Penjualan values ('F-007', '2014-10-12', 'P-004', 'B-001', 10);
+insert into Penjualan values ('F-007', '2014-10-12', 'P-004', 'B-002', 15);
+insert into Penjualan values ('F-007', '2014-10-12', 'P-004', 'B-004', 5);
+insert into Penjualan values ('F-007', '2014-10-12', 'P-004', 'B-005', 20);
+
+
+/*Latihan 1*/
+alter table Barang change Jumlah Jumlah_barang Int;		
+
+use dbmhs;
+
+alter table Mahasiswa add Dosen_PA Varchar(25) After Alamat;
+
+use dbpenjualan;
+
+alter table Barang Modify Nama_brg Varchar(40);
+
+/*Latihan 2*/
+update pelanggan set Alamat = 'Jl. Sudirman No.10 Bukittinggi' where Kode_plgg = 'P-002';
+
+update Barang set Harga = 550000 where Kode_brg = 'B-003';
+
+update Barang set Harga = 100000 where Kode_brg = 'B-005';
+
+/*Latihan 3*/
+select * from Barang where Jumlah_barang between 150 AND 250;
+
+select * from Barang, Penjualan where penjualan.tanggal_jual = '2014-09-12' and barang.Kode_brg = penjualan.Kode_brg;
+
+select * from barang order by Harga ASC;
+
+select * from pelanggan where Alamat like '%Bukittinggi';
+
+select T2.No_faktur, T2.Tanggal_jual, T2.Kode_plgg, T2.Kode_brg, T1.Nama_brg, T2.Jumlah_jual from barang T1, penjualan T2 where T2.kode_brg = 'B-002' and T1.Kode_brg=T2.Kode_brg;
+
+/*latihan 4*/
+select avg(Jumlah_jual) from penjualan where Tanggal_jual='2014-09-01';
+
+select max(Jumlah_jual) from penjualan;
+
+select * from penjualan where Jumlah_jual >14;
+
+
+
+

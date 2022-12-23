@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-left">
+          <img class="logo" src="/static/logo.png">
+        </div>
+        <span class="fa fa-bars menu-icon"></span>
+        <div class="header-right">
+          <a href="#">Profil</a>
+          <a href="#">Form PA</a>
+          <a href="#">Input Nilai</a>
+          <a href="#">Capaian Hasil Belajar</a>
+          <a href="#">Persetujuan PA</a>
+          <!--<a href="#" class="login">Log in</a>-->
+          
+        </div>
+      </div>
+    </header>
+     <div class="top-wrapper">
+      <div class="container">
+        <div class="container-left">
+          <img src="/static/SIMBAWA.svg" alt="" class="Simbawa">
+          <br>
+          <img src="/static/Group 8.png" alt="" class="imgtm">
+        </div>
+        <div class="container-right">
+          <img src="/static/elemen.png" alt="" class="toga">    
+          <h2>SISTEM BIMBINGAN <br>AKADEMIK MAHASISWA</h2>
+          <div class="btn-wrapper">
+            <a href="{{url_for('signup')}}" class="btn register"><span class="fa fa-register"></span>Register</a>
+            <a href="{{url_for('pilihlogin')}}" class="btn login"><span class="fa fa-login"></span>Login</a>
+          </div>
+        </div>  
+      </div>
+    </div>
+    <footer>
+      <div class="foot">
+        <p>Fakultas Teknologi Informasi <br>2022</p>
+      </div>
+    </footer>
+  </body>
+</html>
